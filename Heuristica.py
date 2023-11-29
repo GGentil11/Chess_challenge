@@ -3,11 +3,11 @@ import chess
 def avaliarTabuleiro(board):
     # Valores para as peças
     valores_peca = {
-        chess.PAWN: 10,
-        chess.KNIGHT: 30,
-        chess.BISHOP: 30,
-        chess.ROOK: 50,
-        chess.QUEEN: 90,
+        chess.PAWN: 1,
+        chess.KNIGHT: 3,
+        chess.BISHOP: 3,
+        chess.ROOK: 5,
+        chess.QUEEN: 9,
         chess.KING: 900
     }
 
@@ -60,11 +60,4 @@ def avaliarTabuleiro(board):
         peso_estrutura_peoes * pontuacao_estrutura_peoes +
         weighted_threat_score * threat_score
     )
-
-
-    """pontuacao_total = (pontuacao_material + pontuacao_mobilidade + 
-                       pontuacao_controle_centro + pontuacao_estrutura_peoes + 
-                       weighted_threat_score
-    )"""
-    
     return pontuacao_total
