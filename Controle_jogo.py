@@ -1,6 +1,6 @@
 import chess
 
-def definirLado():
+def definir_lado():
     lado = input('Defina o seu lado (W/B): ').upper()
     if lado == 'W':
         return chess.WHITE
@@ -8,9 +8,9 @@ def definirLado():
         return chess.BLACK
     else:
         print('Lado inválido. Escolha W para branco ou B para preto.')
-        return definirLado() 
+        return definir_lado() 
     
-def jogadaOponente(board):
+def jogada_oponente(board):
     while True:
         resposta = input('Informe a jogada do oponente (use a notação de casas): ').lower()
         if len(resposta) == 4  and resposta.isalnum():
