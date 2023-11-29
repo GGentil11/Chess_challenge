@@ -12,7 +12,7 @@ def definirLado():
     
 def jogadaOponente(board):
     while True:
-        resposta = input('Informe a jogada do oponente (use a notação de casas): ')
+        resposta = input('Informe a jogada do oponente (use a notação de casas): ').lower()
         if len(resposta) == 4  and resposta.isalnum():
             jogada = chess.Move.from_uci(resposta)
             if jogada in board.legal_moves:
