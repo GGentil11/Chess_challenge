@@ -1,32 +1,37 @@
 import chess
 from Heuristica import avaliar_tabuleiro
-from Logica_jogo import is_terminal, get_moves, make_move, get_oponente
+from Logica_jogo import is_terminal, get_jogadas, fazer_jogada, get_oponente
 
 def minimax_alpha_beta(board, lado_jogador, profundidade, alpha, beta):
-    if profundidade == 0 or is_terminal(board):
+    if (profundidade == 0 or is_terminal(board)) and lado_jogador == chess.WHITE:
         return None, avaliar_tabuleiro(board)
+    
+    elif (profundidade == 0 or is_terminal(board)) and lado_jogador == chess.BLACK:
+        return None, -avaliar_tabuleiro(board)
 
-    best_move = None
-    best_value = float("-inf") if board.turn == lado_jogador else float("inf")
+    melhor_jogada = None
+    if board.turn == lado_jogador:
+        melhor_valor = float("-inf")
+    else:
+        melhor_valor = float("inf")
 
-    for move in get_moves(board, lado_jogador):
-        new_board = make_move(board, move)
-        _, value = minimax_alpha_beta(new_board, get_oponente(lado_jogador), profundidade - 1, alpha, beta)
+    for jogada in get_jogadas(board):
+        new_board = fazer_jogada(board, jogada)
+        _, valor = minimax_alpha_beta(new_board, get_oponente(lado_jogador), 
+                                      profundidade - 1, alpha, beta)
 
-        if (board.turn == lado_jogador and value > best_value) or (board.turn != lado_jogador and value < best_value):
-            best_move = move
-            best_value = value
+        if (board.turn == lado_jogador and valor > melhor_valor) or (board.turn != lado_jogador and valor < melhor_valor):
+            melhor_jogada = jogada
+            melhor_valor = valor
 
-        if board.turn == lado_jogador:
-            alpha = max(alpha, best_value)
+        if board.turn == chess.WHITE:
+            alpha = max(alpha, melhor_valor)
             if alpha >= beta:
-                print("Realizando poda alfa")
                 break
         else:
-            beta = min(beta, best_value)
+            beta = min(beta, melhor_valor)
             if beta <= alpha:
-                print("Realizando poda beta")
                 break
 
-    return best_move, best_value
+    return melhor_jogada, melhor_valor
 
